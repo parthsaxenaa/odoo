@@ -1,73 +1,82 @@
-# Welcome to your Lovable project
+# StackIt – A Minimal Q&A Forum Platform
 
-## Project info
+**Team Name:** parthsaxena2022  
+**Project Type:** Collaborative Learning Platform
 
-**URL**: https://lovable.dev/projects/742d1078-ba52-49d8-8daa-1cd8560fc5ca
+![StackIt Banner](https://via.placeholder.com/800x200?text=StackIt+-+Collaborative+Q%26A+Platform)
 
-## How can I edit this code?
+## Overview
+StackIt is a minimalist question-and-answer platform designed to facilitate structured knowledge sharing within communities. With a focus on core Q&A functionality and clean user experience, StackIt enables users to:
 
-There are several ways of editing your application.
+- Ask technical questions with rich formatting
+- Share expertise through answers
+- Organize knowledge through tagging
+- Validate solutions through voting
 
-**Use Lovable**
+[View Mockup Design](https://link.excalidraw.com/l/65VNwvy7c4X/8bM86GXnnUN)
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/742d1078-ba52-49d8-8daa-1cd8560fc5ca) and start prompting.
+## User Roles & Permissions
+| Role | Permissions |
+|------|-------------|
+| **Guest** | View all questions and answers |
+| **User** | Register, log in, post questions/answers, vote, receive notifications |
+| **Admin** | Moderate content, manage users, send platform notifications |
 
-Changes made via Lovable will be committed automatically to this repo.
+## Core Features
 
-**Use your preferred IDE**
+### 1. Question Management
+- **Rich Text Editor** for question descriptions with:
+  - Text formatting (Bold, Italic, Strikethrough)
+  - Lists (Numbered/Bulleted)
+  - Media support (Images, Hyperlinks)
+  - Emoji insertion
+  - Text alignment options
+- **Tagging System**: Multi-select tags (e.g., React, JWT) for content organization
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+### 2. Answer System
+- Rich text answers using same editor
+- Voting mechanism (upvote/downvote)
+- Question owner can mark **accepted answer**
+- Login requirement for posting answers
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+### 3. Notification System
+- Real-time notification bell with unread counter
+- Triggers:
+  - New answers to user's questions
+  - Comments on user's answers
+  - @mentions in discussions
+- Dropdown with recent notifications
 
-Follow these steps:
+### 4. Admin Features
+- **Content Moderation**:
+  - Approve/reject skill descriptions
+  - Manage reported content
+- **User Management**:
+  - Ban violating users
+  - Monitor swap statuses (pending/accepted/cancelled)
+- **Platform Administration**:
+  - Send broadcast messages
+  - Generate activity reports
+  - Download usage statistics
 
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
+## Technology Stack
+- **Frontend**: React.js, Redux, Rich Text Editor
+- **Backend**: Node.js, Express
+- **Database**: PostgreSQL
+- **Authentication**: JWT
+- **Deployment**: Docker, AWS
 
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
+## Installation
+```bash
+# Clone repository
+git clone https://github.com/parthsaxena2022/StackIt.git
 
-# Step 3: Install the necessary dependencies.
-npm i
+# Install dependencies
+cd StackIt
+npm install
 
-# Step 4: Start the development server with auto-reloading and an instant preview.
+# Configure environment variables
+cp .env.example .env
+
+# Start development server
 npm run dev
-```
-
-**Edit a file directly in GitHub**
-
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
-
-**Use GitHub Codespaces**
-
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
-
-## What technologies are used for this project?
-
-This project is built with:
-
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
-
-## How can I deploy this project?
-
-Simply open [Lovable](https://lovable.dev/projects/742d1078-ba52-49d8-8daa-1cd8560fc5ca) and click on Share -> Publish.
-
-## Can I connect a custom domain to my Lovable project?
-
-Yes, you can!
-
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
-
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/tips-tricks/custom-domain#step-by-step-guide)
