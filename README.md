@@ -1,7 +1,8 @@
 # StackIt – A Minimal Q&A Forum Platform
 
 **Team Name:** parthsaxena2022  Team 3135
-**Project Type:** Collaborative Learning Platform
+**Project Type:** StackIt – A Minimal Q&A Forum Platform
+
 
 ![StackIt Banner](https://via.placeholder.com/800x200?text=StackIt+-+Collaborative+Q%26A+Platform)
 
