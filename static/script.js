@@ -125,11 +125,62 @@ const homePage = document.getElementById('homePage');
 const askQuestionPage = document.getElementById('askQuestionPage');
 const questionDetailPage = document.getElementById('questionDetailPage');
 
-// Display questions
+// Sidebar filter state
+let currentFilter = 'all';
+let currentTag = null;
+
+function getPopularTags() {
+    const tagCounts = {};
+    sampleQuestions.forEach(q => {
+        q.tags.forEach(tag => {
+            tagCounts[tag] = (tagCounts[tag] || 0) + 1;
+        });
+    });
+    // Sort tags by count, descending
+    return Object.entries(tagCounts)
+        .sort((a, b) => b[1] - a[1])
+        .slice(0, 8)
+        .map(([tag]) => tag);
+}
+
+function renderPopularTags() {
+    const tags = getPopularTags();
+    const container = document.getElementById('popularTags');
+    if (!container) return;
+    container.innerHTML = tags.map(tag => `<span class="tag" data-tag="${tag}">#${tag}</span>`).join('');
+    // Add click listeners
+    Array.from(container.querySelectorAll('.tag')).forEach(tagEl => {
+        tagEl.onclick = () => {
+            currentTag = tagEl.getAttribute('data-tag');
+            currentFilter = 'tag';
+            setSidebarActive(null);
+            displayQuestions(sampleQuestions);
+        };
+    });
+}
+
+function setSidebarActive(id) {
+    ['filterAll','filterUnanswered','filterTrending'].forEach(fid => {
+        const el = document.getElementById(fid);
+        if (el) el.classList.remove('active');
+    });
+    if (id) {
+        const el = document.getElementById(id);
+        if (el) el.classList.add('active');
+    }
+}
+
 function displayQuestions(questions) {
+    let filtered = questions;
+    if (currentFilter === 'unanswered') {
+        filtered = questions.filter(q => !q.answersList || q.answersList.length === 0);
+    } else if (currentFilter === 'trending') {
+        filtered = [...questions].sort((a, b) => b.votes - a.votes).slice(0, 10);
+    } else if (currentFilter === 'tag' && currentTag) {
+        filtered = questions.filter(q => q.tags.includes(currentTag));
+    }
     questionsGrid.innerHTML = '';
-    
-    questions.forEach(question => {
+    filtered.forEach(question => {
         const questionElement = document.createElement('div');
         questionElement.className = 'question-card';
         questionElement.onclick = () => showQuestionDetail(question);
@@ -140,7 +191,7 @@ function displayQuestions(questions) {
                     <span class="label">votes</span>
                 </div>
                 <div class="stat">
-                    <span class="number">${question.answers}</span>
+                    <span class="number">${question.answersList ? question.answersList.length : 0}</span>
                     <span class="label">answers</span>
                 </div>
                 <div class="stat">
@@ -185,6 +236,7 @@ function showHomePage() {
     homePage.classList.remove('hidden');
     askQuestionPage.classList.add('hidden');
     questionDetailPage.classList.add('hidden');
+    document.getElementById('sidebar').style.display = '';
     displayQuestions(sampleQuestions);
 }
 
@@ -192,12 +244,14 @@ function showAskQuestion() {
     homePage.classList.add('hidden');
     askQuestionPage.classList.remove('hidden');
     questionDetailPage.classList.add('hidden');
+    document.getElementById('sidebar').style.display = 'none';
 }
 
 function showQuestionDetail(question, editAnswerId = null) {
     homePage.classList.add('hidden');
     askQuestionPage.classList.add('hidden');
     questionDetailPage.classList.remove('hidden');
+    document.getElementById('sidebar').style.display = 'none';
     
     const questionDetailContent = document.getElementById('questionDetailContent');
     // Answers HTML
@@ -576,6 +630,31 @@ if (askQuestionForm) {
     });
 }
 
+// Sidebar event listeners
+function setupSidebarFilters() {
+    const all = document.getElementById('filterAll');
+    const unans = document.getElementById('filterUnanswered');
+    const trend = document.getElementById('filterTrending');
+    if (all) all.onclick = () => {
+        currentFilter = 'all';
+        currentTag = null;
+        setSidebarActive('filterAll');
+        displayQuestions(sampleQuestions);
+    };
+    if (unans) unans.onclick = () => {
+        currentFilter = 'unanswered';
+        currentTag = null;
+        setSidebarActive('filterUnanswered');
+        displayQuestions(sampleQuestions);
+    };
+    if (trend) trend.onclick = () => {
+        currentFilter = 'trending';
+        currentTag = null;
+        setSidebarActive('filterTrending');
+        displayQuestions(sampleQuestions);
+    };
+}
+
 // Initialize the application
 document.addEventListener('DOMContentLoaded', () => {
     // Initialize Quill
@@ -601,4 +680,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     updateAuthUI();
     showHomePage();
+    renderPopularTags();
+    setupSidebarFilters();
 });

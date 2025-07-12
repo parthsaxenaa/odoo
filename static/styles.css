@@ -791,3 +791,229 @@ body {
 .toast.warning {
     border-left: 4px solid var(--warning);
 }
+
+.layout {
+    display: flex;
+    align-items: flex-start;
+    width: 100%;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+.sidebar {
+    width: 270px;
+    background: var(--bg-secondary);
+    border-radius: 1.2rem;
+    margin: 2.5rem 0 2.5rem 2.5rem;
+    padding: 2rem 1.5rem;
+    box-shadow: 0 2px 16px rgba(0,0,0,0.10);
+    color: var(--text-primary);
+    min-height: 500px;
+    border: 1px solid var(--border-color);
+}
+
+.sidebar-section {
+    margin-bottom: 2.5rem;
+}
+
+.sidebar-title {
+    font-size: 1.1rem;
+    font-weight: 700;
+    margin-bottom: 1.2rem;
+    color: var(--text-primary);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.sidebar-filter-list {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 1.5rem 0;
+}
+
+.sidebar-filter-item {
+    padding: 0.7rem 1rem;
+    border-radius: 0.8rem;
+    margin-bottom: 0.5rem;
+    cursor: pointer;
+    color: var(--text-secondary);
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 0.7rem;
+    transition: background 0.2s, color 0.2s;
+    background: transparent;
+    border: none;
+}
+
+.sidebar-filter-item.active, .sidebar-filter-item:hover {
+    background: var(--primary-color);
+    color: #fff;
+}
+
+hr {
+    border: none;
+    border-top: 1px solid var(--border-color);
+    margin: 1.5rem 0;
+}
+
+.sidebar-tags-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.7rem;
+}
+
+.sidebar-tags-list .tag {
+    background: rgba(99,102,241,0.12);
+    color: #a5b4fc;
+    border-radius: 1.2rem;
+    padding: 0.45rem 1.1rem;
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+    display: inline-block;
+    transition: background 0.2s, color 0.2s;
+    border: none;
+}
+
+.sidebar-tags-list .tag:hover {
+    background: var(--primary-color);
+    color: #fff;
+}
+
+.main-content {
+    flex: 1;
+    margin-left: 0;
+    padding-left: 0;
+    margin-top: 2.5rem;
+    margin-right: 2.5rem;
+}
+
+.questions-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    margin-bottom: 3rem;
+}
+
+.question-card {
+    background: var(--bg-secondary);
+    border: 1.5px solid var(--primary-color);
+    border-radius: 1.2rem;
+    padding: 2rem 2.2rem 1.5rem 2.2rem;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 4px 32px 0 rgba(79,70,229,0.08);
+}
+
+.question-card:hover {
+    transform: translateY(-4px) scale(1.01);
+    box-shadow: 0 10px 40px rgba(79,70,229,0.18);
+    border-color: var(--accent-color);
+}
+
+.question-card .question-title {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 0.5rem;
+}
+
+.question-card .question-description {
+    color: var(--text-secondary);
+    margin-bottom: 0.7rem;
+}
+
+.question-card .tags {
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.question-card .tag {
+    background: rgba(99,102,241,0.12);
+    color: #a5b4fc;
+    border-radius: 1.2rem;
+    padding: 0.3rem 0.9rem;
+    font-size: 0.95rem;
+    font-weight: 500;
+    margin-right: 0.5rem;
+    display: inline-block;
+    margin-bottom: 0.2rem;
+    border: none;
+    transition: background 0.2s, color 0.2s;
+}
+
+.question-card .tag:hover {
+    background: var(--primary-color);
+    color: #fff;
+}
+
+.question-stats {
+    display: flex;
+    gap: 2.2rem;
+    margin-bottom: 0.7rem;
+    color: var(--text-muted);
+    font-size: 1rem;
+}
+
+.stat .number {
+    font-weight: 700;
+    color: var(--primary-color);
+    font-size: 1.1rem;
+}
+
+.stat .label {
+    font-size: 0.95rem;
+    color: var(--text-muted);
+}
+
+.author-info {
+    display: flex;
+    align-items: center;
+    gap: 0.7rem;
+    margin-top: 0.5rem;
+}
+
+.author-avatar {
+    width: 2.2rem;
+    height: 2.2rem;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 1.1rem;
+    box-shadow: 0 2px 8px rgba(79,70,229,0.10);
+}
+
+.author-name {
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.timestamp {
+    color: var(--text-muted);
+    font-size: 0.95rem;
+}
+
+@media (max-width: 1200px) {
+    .layout {
+        flex-direction: column;
+        max-width: 100%;
+    }
+    .sidebar {
+        width: 100%;
+        margin: 1rem 0;
+        min-height: unset;
+    }
+    .main-content {
+        margin-left: 0;
+        padding-left: 0;
+        margin-right: 0;
+    }
+}
