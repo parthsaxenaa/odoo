@@ -1,27 +1,209 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>StackIt - Q&A Platform</title>
-    <meta name="description" content="Modern Q&A platform for developers" />
-    <meta name="author" content="StackIt" />
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StackIt - Developer Q&A Platform</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+    <!-- Quill Editor CSS -->
+    <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="#" class="logo">
+                <i class="fas fa-layer-group"></i>
+                StackIt
+            </a>
+            
+            <div class="search-container">
+                <input type="text" class="search-box" placeholder="Search questions..." id="searchInput">
+                <i class="fas fa-search search-icon"></i>
+            </div>
+            
+            <div class="nav-actions">
+                <a href="#" class="btn btn-primary" onclick="showAskQuestion()">
+                    <i class="fas fa-plus"></i>
+                    Ask Question
+                </a>
+                
+                <div class="notification-container">
+                    <button class="notification-btn" onclick="toggleNotifications()">
+                        <i class="fas fa-bell"></i>
+                        <span class="notification-dot"></span>
+                    </button>
+                    
+                    <div class="notification-dropdown" id="notificationDropdown">
+                        <div class="notification-item">
+                            <strong>@johndoe mentioned you</strong>
+                            <div style="font-size: 0.875rem; color: var(--text-muted); margin-top: 0.25rem;">
+                                In "How to optimize React performance?"
+                            </div>
+                        </div>
+                        <div class="notification-item">
+                            <strong>New answer on your question</strong>
+                            <div style="font-size: 0.875rem; color: var(--text-muted); margin-top: 0.25rem;">
+                                "Best practices for JWT authentication"
+                            </div>
+                        </div>
+                        <div class="notification-item">
+                            <strong>Your answer was accepted</strong>
+                            <div style="font-size: 0.875rem; color: var(--text-muted); margin-top: 0.25rem;">
+                                "How to handle async operations in JS"
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="user-avatar" id="userAvatar" onclick="showAuthModal()">
+                    <i class="fas fa-user"></i>
+                    <span id="navbarUsername" style="margin-left: 0.5rem;"></span>
+                </div>
+                <button id="logoutBtn" class="btn btn-outline hidden" onclick="logoutUser()">Logout</button>
+            </div>
+        </div>
+    </nav>
 
-    <meta property="og:title" content="stackit-question-flow" />
-    <meta property="og:description" content="Lovable Generated Project" />
-    <meta property="og:type" content="website" />
-    <meta property="og:image" content="https://lovable.dev/opengraph-image-p98pqg.png" />
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="container">
+            <!-- Home Page -->
+            <section id="homePage">
+                <div class="page-header">
+                    <h1 class="page-title">Welcome to StackIt</h1>
+                    <p class="page-subtitle">
+                        The ultimate Q&A platform for developers. Ask questions, share knowledge, and build amazing things together.
+                    </p>
+                </div>
+                
+                <div class="questions-grid" id="questionsGrid">
+                    <!-- Questions will be populated by JavaScript -->
+                </div>
+            </section>
 
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:site" content="@lovable_dev" />
-    <meta name="twitter:image" content="https://lovable.dev/opengraph-image-p98pqg.png" />
-  </head>
+            <!-- Ask Question Page -->
+            <section id="askQuestionPage" class="hidden">
+                <div class="page-header">
+                    <h1 class="page-title">Ask a Question</h1>
+                    <p class="page-subtitle">
+                        Get help from the community by asking a clear, detailed question.
+                    </p>
+                </div>
+                
+                <div class="form-container">
+                    <form id="askQuestionForm">
+                        <div class="form-group">
+                            <label class="form-label">Question Title</label>
+                            <input type="text" class="form-input" id="questionTitle" placeholder="What's your programming question?" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label">Tags</label>
+                            <input type="text" class="form-input" id="questionTags" placeholder="javascript, react, node.js (comma separated)">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label">Question Description</label>
+                            <div id="questionDescriptionEditor" style="height: 150px;"></div>
+                            <input type="hidden" id="questionDescription" name="questionDescription" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-primary" style="width: 100%;">
+                                <i class="fas fa-paper-plane"></i>
+                                Post Question
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </section>
 
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.tsx"></script>
-  </body>
+            <!-- Question Detail Page -->
+            <section id="questionDetailPage" class="hidden">
+                <div id="questionDetailContent">
+                    <!-- Question detail will be populated by JavaScript -->
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Auth Modal -->
+    <div class="modal" id="authModal">
+        <div class="modal-content">
+            <button class="close-btn" onclick="closeAuthModal()">&times;</button>
+            
+            <!-- Login Form -->
+            <div id="loginForm">
+                <div class="modal-header">
+                    <h2 class="modal-title">Welcome Back</h2>
+                    <p style="color: var(--text-secondary);">Sign in to your account</p>
+                </div>
+                
+                <form>
+                    <div class="form-group">
+                        <label class="form-label">Email</label>
+                        <input type="email" class="form-input" placeholder="Enter your email" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Password</label>
+                        <input type="password" class="form-input" placeholder="Enter your password" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary" style="width: 100%;" onclick="handleLogin(event)">
+                            <i class="fas fa-sign-in-alt"></i>
+                            Sign In
+                        </button>
+                    </div>
+                </form>
+                
+                <div class="auth-toggle">
+                    <p>Don't have an account? <a href="#" onclick="showSignupForm()">Sign up</a></p>
+                </div>
+            </div>
+            
+            <!-- Signup Form -->
+            <div id="signupForm" class="hidden">
+                <div class="modal-header">
+                    <h2 class="modal-title">Join StackIt</h2>
+                    <p style="color: var(--text-secondary);">Create your account</p>
+                </div>
+                
+                <form>
+                    <div class="form-group">
+                        <label class="form-label">Full Name</label>
+                        <input type="text" class="form-input" placeholder="Enter your full name" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Email</label>
+                        <input type="email" class="form-input" placeholder="Enter your email" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Password</label>
+                        <input type="password" class="form-input" placeholder="Create a password" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary" style="width: 100%;" onclick="handleSignup(event)">
+                            <i class="fas fa-user-plus"></i>
+                            Sign Up
+                        </button>
+                    </div>
+                </form>
+                
+                <div class="auth-toggle">
+                    <p>Already have an account? <a href="#" onclick="showLoginForm()">Sign in</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.quilljs.com/1.3.6/quill.min.js"></script>
+    <script src="script.js"></script>
+</body>
 </html>
