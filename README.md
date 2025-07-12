@@ -1,73 +1,40 @@
-# Welcome to your Lovable project
+# StackIt – Minimal Q&A Platform
 
-## Project info
+**Team Name:** parthsaxena2022  
+**Project Type:** Collaborative Knowledge Sharing Platform  
+**Status:** Active Development  
 
-**URL**: https://lovable.dev/projects/742d1078-ba52-49d8-8daa-1cd8560fc5ca
+![StackIt Screenshot](https://via.placeholder.com/1200x600?text=StackIt+Interface+Preview)
 
-## How can I edit this code?
+## Overview
+StackIt is a minimalist question-and-answer platform designed for efficient knowledge exchange. Prioritizing usability and core functionality, StackIt enables communities to:
+- Quickly find solutions through structured Q&A
+- Curate knowledge with voting and tagging systems
+- Maintain content quality through moderation tools
 
-There are several ways of editing your application.
+[View Interactive Mockup](https://link.excalidraw.com/l/65VNwvy7c4X/8bM86GXnnUN)
 
-**Use Lovable**
+## Key Features
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/742d1078-ba52-49d8-8daa-1cd8560fc5ca) and start prompting.
+### 🚀 Question Management
+| Feature | Details |
+|---------|---------|
+| **Rich Text Editor** | WYSIWYG editing with media support |
+| **Tagging System** | Multi-select categorization + tag suggestions |
+| **Question Formatting** | Title (120 char limit) + detailed description |
 
-Changes made via Lovable will be committed automatically to this repo.
+### 💬 Engagement Features
+| Feature | Description |
+|---------|-------------|
+| Answer System | Threaded replies with same rich editor |
+| Voting | Upvote/downvote answers (+5/-2 rep) |
+| Accepted Answer | Green checkmark + 15 reputation bonus |
+| @Mentions | User notifications in content |
 
-**Use your preferred IDE**
-
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
-
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
-
-Follow these steps:
-
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
-
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
-
-# Step 3: Install the necessary dependencies.
-npm i
-
-# Step 4: Start the development server with auto-reloading and an instant preview.
-npm run dev
-```
-
-**Edit a file directly in GitHub**
-
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
-
-**Use GitHub Codespaces**
-
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
-
-## What technologies are used for this project?
-
-This project is built with:
-
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
-
-## How can I deploy this project?
-
-Simply open [Lovable](https://lovable.dev/projects/742d1078-ba52-49d8-8daa-1cd8560fc5ca) and click on Share -> Publish.
-
-## Can I connect a custom domain to my Lovable project?
-
-Yes, you can!
-
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
-
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/tips-tricks/custom-domain#step-by-step-guide)
+### 🔔 Notification System
+```mermaid
+graph LR
+    A[New Answer] --> B(Notification Bell)
+    C[Comment] --> B
+    D[@Mention] --> B
+    B --> E{User Dashboard}
